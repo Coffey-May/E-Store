@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Products />
-
+      {/* <Cart /> */}
     </div>
   );
 }
