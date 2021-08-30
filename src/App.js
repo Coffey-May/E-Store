@@ -14,9 +14,11 @@ const App = () => {
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
+
     console.log(data)
     setProducts(data);
   };
+  // console.log("products:", products)
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
@@ -78,7 +80,7 @@ const App = () => {
         <Navbar totalItems={cart.total_items} handleDrawerToggle={handleDrawerToggle} />
         <Switch>
           <Route exact path="/">
-            <Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />
+            <Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty={handleUpdateCartQty} />
           </Route>
           <Route exact path="/cart">
             <Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />

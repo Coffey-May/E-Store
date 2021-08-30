@@ -1,33 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
-import useStyles from './styles';
+import { Link, useLocation } from 'react-router-dom';
+
 import Pit from '../../assets/pitbull.jpg';
+import useStyles from './styles';
 
-const Navbar = () => {
-    const classes = useStyles();
-    return (
-        <>
-            <AppBar position="fixed" className={classes.appBar} color="inherit">
-                <Toolbar>
-                    <Typography variiant="h6" className={classes.title} color="inherit">
-                        <img src={Pit} alt="Commerce.js" height="25px" className={classes.image} />
-                        Commerce.js
-                    </Typography>
+const PrimarySearchAppBar = ({ totalItems }) => {
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const classes = useStyles();
+  const location = useLocation();
 
-                    <div className={classes.grow} />
-                    <div className={classes.button}>
-                        <IconButton aria-label="display cart items" color="inherit">
-                            <Badge badgeContent={2} color="secondary">
-                                <ShoppingCart />
-                            </Badge>
-                        </IconButton>
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-                    </div>
-                </Toolbar>
-            </AppBar>
-        </>
-    )
-}
+  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
 
-export default Navbar
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  const renderMobileMenu = (
+    <Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
+      <MenuItem>
+        <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+          <Badge badgeContent={totalItems} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <p>Cart</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  return (
+    <>
+      <AppBar position="fixed" className={classes.appBar} color="inherit">
+        <Toolbar>
+          <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
+            <img src={Pit} alt="commerce.js" height="25px" className={classes.image} /> Commerce.js
+          </Typography>
+          <div className={classes.grow} />
+          {location.pathname === '/' && (
+          <div className={classes.button}>
+            <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+              <Badge badgeContent={totalItems} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </div>
+          )}
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+    </>
+  );
+};
+
+export default PrimarySearchAppBar;
