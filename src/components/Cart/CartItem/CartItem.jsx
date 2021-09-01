@@ -1,7 +1,23 @@
-import React from 'react';
-import { Typography, Button, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
-
+import React,{lazy,Suspense} from 'react';
+// import { Typography, Button, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
+// import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
+// import Card from '@material-ui/core/Card';
+// import CardActions from '@material-ui/core/CardActions';
+// import CardContent from '@material-ui/core/CardContent';
+// import CardMedia from '@material-ui/core/CardMedia';
 import useStyles from './styles';
+
+// const useStyles = lazy(() => import("./styles"))
+
+const Typography = lazy(() => import("@material-ui/core/Typography"))
+const Button = lazy(() => import("@material-ui/core/Button"))
+const Card = lazy(() => import("@material-ui/core/Card"))
+const CardActions = lazy(() => import("@material-ui/core/CardActions"))
+const CardContent = lazy(() => import("@material-ui/core/CardContent"))
+const CardMedia = lazy(() => import("@material-ui/core/CardMedia"))
+
+
 
 const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
     const classes = useStyles();
@@ -11,6 +27,7 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
     const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
 
     return (
+        <Suspense fallback={'loading...'}>
         <Card className="cart-item">
             <CardMedia image={item.media.source} alt={item.name} className={classes.media} />
             <CardContent className={classes.cardContent}>
@@ -26,6 +43,7 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
                 <Button variant="contained" type="button" color="secondary" onClick={() => handleRemoveFromCart(item.id)}>Remove</Button>
             </CardActions>
         </Card>
+        </Suspense>
     );
 };
 

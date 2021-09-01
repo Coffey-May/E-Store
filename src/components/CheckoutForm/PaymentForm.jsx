@@ -1,9 +1,13 @@
-import React from 'react';
-import { Typography, Button, Divider } from '@material-ui/core';
+import React,{lazy,Suspense} from 'react';
+// import { Typography, Button, Divider } from '@material-ui/core';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+// import Review from './Review';
+const Typography = lazy(() => import('@material-ui/core/Typography'));
+const Button = lazy(() => import('@material-ui/core/Button'));
+const Divider = lazy(() => import('@material-ui/core/Divider'));
 
-import Review from './Review';
+const Review = lazy(() => import('./Review'));
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -41,7 +45,9 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
 
   return (
     <>
+    <Suspense fallback={'loading...'}>
       <Review checkoutToken={checkoutToken} />
+      
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Payment method</Typography>
       <Elements stripe={stripePromise}>
@@ -59,6 +65,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
         )}
         </ElementsConsumer>
       </Elements>
+      </Suspense>
     </>
   );
 };

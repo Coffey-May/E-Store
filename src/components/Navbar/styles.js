@@ -19,6 +19,9 @@ export default makeStyles((theme) => ({
     },
     image: {
         marginRight: '10px',
+        aspectRatio: 'attr(width) / attr(height)',
+        width: '5vw',
+        height: 'auto'
     },
     menuButton: {
         marginRight: theme.spacing(2),
