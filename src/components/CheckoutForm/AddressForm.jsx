@@ -63,33 +63,36 @@ const AddressForm = ({ checkoutToken, test }) => {
             <FormInput required name="zip" label="Zip / Postal code" />
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Country</InputLabel>
+             { shippingCountries === [] ? null:
               <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
-                {Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name })).map((item) => (
+                { Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name })).map((item) => (
                   <MenuItem key={item.id} value={item.id}>
                     {item.label}
                   </MenuItem>
                 ))}
-              </Select>
+              </Select>}
             </Grid>
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Subdivision</InputLabel>
+              {shippingSubdivisions === [] ? null:
               <Select value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
-                {Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name })).map((item) => (
+                { Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name })).map((item) => (
                   <MenuItem key={item.id} value={item.id}>
                     {item.label}
                   </MenuItem>
                 ))}
-              </Select>
+              </Select>}
             </Grid>
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Options</InputLabel>
+              {shippingOptions === [] ? null:
               <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
-                {shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` })).map((item) => (
+                { shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` })).map((item) => (
                   <MenuItem key={item.id} value={item.id}>
                     {item.label}
                   </MenuItem>
                 ))}
-              </Select>
+              </Select>}
             </Grid>
           </Grid>
           <br />
