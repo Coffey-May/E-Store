@@ -1,13 +1,9 @@
-import React,{lazy,Suspense} from 'react';
-// import { Typography, Button, Divider } from '@material-ui/core';
+import React from 'react';
+import { Typography, Button, Divider } from '@material-ui/core';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-// import Review from './Review';
-const Typography = lazy(() => import('@material-ui/core/Typography'));
-const Button = lazy(() => import('@material-ui/core/Button'));
-const Divider = lazy(() => import('@material-ui/core/Divider'));
 
-const Review = lazy(() => import('./Review'));
+import Review from './Review';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -25,18 +21,49 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
       console.log('[error]', error);
     } else {
       const orderData = {
-        line_items: checkoutToken.live.line_items,
+        line_items: checkoutToken.live.line_items.line_items,
         customer: { firstname: shippingData.firstName, lastname: shippingData.lastName, email: shippingData.email },
-        shipping: { name: 'International', street: shippingData.address1, town_city: shippingData.city, county_state: shippingData.shippingSubdivision, postal_zip_code: shippingData.zip, country: shippingData.shippingCountry },
+        shipping: { 
+                   name: 'Primary', 
+                   street: shippingData.address1, 
+                   town_city: shippingData.city, 
+                   county_state: shippingData.shippingSubdivision, 
+                   postal_zip_code: shippingData.zip, 
+                   country: shippingData.shippingCountry 
+                  },
         fulfillment: { shipping_method: shippingData.shippingOption },
+        billing: {
+          name: shippingData.firstName,
+          street: shippingData.address1,
+          town_city: shippingData.city,
+          county_state: shippingData.shippingSubdivision,
+          country: shippingData.shippingCountry,
+          postal_zip_code: shippingData.zip
+        },
         payment: {
           gateway: 'stripe',
           stripe: {
-            payment_method_id: paymentMethod.id,
-          },
-        },
+            payment_method_id: paymentMethod.id
+          }
+        }
       };
 
+
+
+
+      // const orderData = {
+      //   line_items: checkoutToken.live.line_items,
+      //   customer: { firstname: shippingData.firstName, lastname: shippingData.lastName, email: shippingData.email },
+      //   shipping: { name: 'International', street: shippingData.address1, town_city: shippingData.city, county_state: shippingData.shippingSubdivision, postal_zip_code: shippingData.zip, country: shippingData.shippingCountry },
+      //   fulfillment: { shipping_method: shippingData.shippingOption },
+      //   payment: {
+      //     gateway: 'stripe',
+      //     stripe: {
+      //       payment_method_id: paymentMethod.id,
+      //     },
+      //   },
+      // };
+console.log("order:",orderData,checkoutToken.live.line_items)
       onCaptureCheckout(checkoutToken.id, orderData);
 
       nextStep();
@@ -45,7 +72,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
 
   return (
     <>
-    <Suspense fallback={'loading...'}>
+    {/* <Suspense fallback={'loading...'}> */}
       <Review checkoutToken={checkoutToken} />
       
       <Divider />
@@ -65,7 +92,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
         )}
         </ElementsConsumer>
       </Elements>
-      </Suspense>
+      {/* </Suspense> */}
     </>
   );
 };

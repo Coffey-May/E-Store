@@ -1,28 +1,11 @@
-import React, { useState, useEffect,lazy,Suspense } from 'react';
-
-// import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 
 import { commerce } from '../../../lib/commerce';
-// import AddressForm from '../AddressForm';
-// import PaymentForm from '../PaymentForm';
+import AddressForm from '../AddressForm';
+import PaymentForm from '../PaymentForm';
 import useStyles from './styles';
-
-// const useStyles = lazy(() => import("./styles"))
-
-const AddressForm = lazy(() => import("../AddressForm"))
-const PaymentForm = lazy(() => import("../PaymentForm"))
-
-const CssBaseline = lazy(() => import("@material-ui/core/CssBaseline"))
-const Paper = lazy(() => import("@material-ui/core/Paper"))
-const Stepper = lazy(() => import("@material-ui/core/Stepper"))
-const Step = lazy(() => import("@material-ui/core/Step"))
-const StepLabel = lazy(() => import("@material-ui/core/StepLabel"))
-const Typography = lazy(() => import("@material-ui/core/Typography"))
-const CircularProgress = lazy(() => import("@material-ui/core/CircularProgress"))
-const Divider = lazy(() => import("@material-ui/core/Divider"))
-const Button = lazy(() => import("@material-ui/core/Button"))
-
 
 const steps = ['Shipping address', 'Payment details'];
 
@@ -50,7 +33,7 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
 
       generateToken();
     }
-  }, [cart, activeStep,history]);
+  }, [cart,activeStep,history]);
 
   const test = (data) => {
     setShippingData(data);
@@ -60,7 +43,6 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
 
   let Confirmation = () => (order.customer ? (
     <>
-      <Suspense fallback={'loading...'}>
       <div>
         <Typography variant="h5">Thank you for your purchase, {order.customer.firstname} {order.customer.lastname}!</Typography>
         <Divider className={classes.divider} />
@@ -68,14 +50,11 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
       </div>
       <br />
       <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
-      </Suspense>
     </>
   ) : (
-    <Suspense fallback={'loading...'}>
     <div className={classes.spinner}>
       <CircularProgress />
     </div>
-    </Suspense>
   ));
 
   if (error) {
@@ -94,7 +73,6 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
 
   return (
     <>
-  <Suspense fallback={'loading...'}>
       <CssBaseline />
       <div className={classes.toolbar} />
       <main className={classes.layout}>
@@ -110,7 +88,6 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
           {activeStep === steps.length ? <Confirmation /> : checkoutToken && <Form />}
         </Paper>
       </main>
-      </Suspense>
     </>
   );
 };

@@ -1,28 +1,10 @@
-import React, { useState, useEffect,lazy,Suspense } from 'react';
-
-// import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@material-ui/core';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import Select from '@material-ui/core/Select';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Button from '@material-ui/core/Button';
-// import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
+import React, { useState, useEffect } from 'react';
+import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@material-ui/core';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-// import FormInput from './CustomTextField';
 
 import { commerce } from '../../lib/commerce';
-
-const FormInput = lazy(() => import('./CustomTextField'));
-
-const InputLabel = lazy(() => import('@material-ui/core/InputLabel'));
-const Select = lazy(() => import('@material-ui/core/Select'));
-const MenuItem = lazy(() => import('@material-ui/core/MenuItem'));
-const Button = lazy(() => import('@material-ui/core/Button'));
-const Grid = lazy(() => import('@material-ui/core/Grid'));
-const Typography = lazy(() => import('@material-ui/core/Typography'));
-
-
+import FormInput from './CustomTextField';
 
 const AddressForm = ({ checkoutToken, test }) => {
   const [shippingCountries, setShippingCountries] = useState([]);
@@ -33,10 +15,9 @@ const AddressForm = ({ checkoutToken, test }) => {
   const [shippingOption, setShippingOption] = useState('');
   const methods = useForm();
 
-  
   const fetchShippingCountries = async (checkoutTokenId) => {
     const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
-console.log(countries)
+    console.log(countries)
     setShippingCountries(countries);
     setShippingCountry(Object.keys(countries)[0]);
   };
@@ -57,6 +38,7 @@ console.log(countries)
 
   useEffect(() => {
     fetchShippingCountries(checkoutToken.id);
+    
   }, [checkoutToken.id]);
 
   useEffect(() => {
@@ -65,27 +47,21 @@ console.log(countries)
 
   useEffect(() => {
     if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
-  }, [shippingSubdivision,checkoutToken.id,shippingCountry]);
+  }, [shippingSubdivision,checkoutToken.id]);
 
   return (
     <>
-     <Suspense fallback={'loading...'}>
       <Typography variant="h6" gutterBottom>Shipping address</Typography>
-
       <FormProvider {...methods}>
-  
         <form onSubmit={methods.handleSubmit((data) => test({ ...data, shippingCountry, shippingSubdivision, shippingOption }))}>
-     
           <Grid container spacing={3}>
-          
             <FormInput required name="firstName" label="First name" />
             <FormInput required name="lastName" label="Last name" />
             <FormInput required name="address1" label="Address line 1" />
             <FormInput required name="email" label="Email" />
             <FormInput required name="city" label="City" />
             <FormInput required name="zip" label="Zip / Postal code" />
-            
-             <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Country</InputLabel>
               <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
                 {Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name })).map((item) => (
@@ -121,11 +97,8 @@ console.log(countries)
             <Button component={Link} variant="outlined" to="/cart">Back to Cart</Button>
             <Button type="submit" variant="contained" color="primary">Next</Button>
           </div>
-
         </form>
-
       </FormProvider>
-      </Suspense>
     </>
   );
 };

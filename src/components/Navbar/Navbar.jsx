@@ -1,4 +1,4 @@
-import React, { useState,memo,lazy,Suspense } from 'react';
+import React, { useState,lazy,Suspense } from 'react';
 // import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 // import ShoppingCart from '@material-ui/icons/ShoppingCart';
 // import AppBar from '@material-ui/core/AppBar';
@@ -14,7 +14,7 @@ import useStyles from './styles';
 
 
 
-// const Pit = lazy(() => import("../../assets/pitbull.jpg"))
+// const Pit = lazy(() => import("../../assets/pitbull-min.jpg"))
 
 import Pit from '../../assets/pitbull.jpg';
 const ShoppingCart = lazy(() => import("@material-ui/icons/ShoppingCart"))
@@ -29,7 +29,7 @@ const Typography = lazy(() => import("@material-ui/core/Typography"))
 // const useStyles = lazy(() => import("./styles"))
 
 
-const Navbar = memo(({ totalItems }) => {
+const Navbar = ({ totalItems }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const classes = useStyles();
   const location = useLocation();
@@ -57,6 +57,7 @@ const Navbar = memo(({ totalItems }) => {
 
   return (
     <>
+    {console.log("nav")}
     <Suspense fallback={'loading...'}>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
@@ -84,6 +85,6 @@ const Navbar = memo(({ totalItems }) => {
       </Suspense>
     </>
   );
-});
+};
 
 export default Navbar;

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense,memo,useCallback} from 'react';
 // import { Container, Typography, Button, Grid } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -20,15 +20,17 @@ const CartItem = lazy(() => import('./CartItem/CartItem'));
 const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
     const classes = useStyles();
 
-    const handleEmptyCart = () => onEmptyCart();
 
-    const renderEmptyCart = () => (
-        // <Suspense fallback={renderLoader()}>
+
+    const handleEmptyCart = useCallback(() => onEmptyCart(),[onEmptyCart]);
+
+    const renderEmptyCart = useCallback(() => (
+        <Suspense fallback={'loading...'}>
         <Typography variant="subtitle1">You have no items in your shopping cart,
             <Link className={classes.link} to="/">start adding some</Link>!
         </Typography>
-        // </Suspense>
-    );
+         </Suspense>
+    ),[classes.link]);
 
     if (!cart.line_items) return 'Loading';
 
@@ -65,4 +67,4 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
     );
 };
 
-export default Cart;
+export default memo(Cart);

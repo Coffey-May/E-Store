@@ -1,4 +1,4 @@
-import React,{lazy,Suspense} from 'react';
+import React,{lazy,Suspense,memo,useCallback} from 'react';
 // import { Typography, Button, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
 // import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
@@ -22,9 +22,9 @@ const CardMedia = lazy(() => import("@material-ui/core/CardMedia"))
 const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
     const classes = useStyles();
 
-    const handleUpdateCartQty = (lineItemId, newQuantity) => onUpdateCartQty(lineItemId, newQuantity);
+    const handleUpdateCartQty = useCallback((lineItemId, newQuantity) => onUpdateCartQty(lineItemId, newQuantity),[onUpdateCartQty]);
 
-    const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
+    const handleRemoveFromCart = useCallback((lineItemId) => onRemoveFromCart(lineItemId),[onRemoveFromCart]);
 
     return (
         <Suspense fallback={'loading...'}>
@@ -47,4 +47,4 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
     );
 };
 
-export default CartItem;
+export default memo(CartItem);
