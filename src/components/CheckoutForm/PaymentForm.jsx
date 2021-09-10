@@ -2,8 +2,16 @@ import React from 'react';
 import { Typography, Button, Divider } from '@material-ui/core';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import loadable from '@loadable/component'
 
-import Review from './Review';
+// import Review from './Review';
+const Review = loadable(() => import("./Review"))
+
+
+// const Typography = loadable(() => import("@material-ui/core/Typography"))
+// const Button = loadable(() => import("@material-ui/core/Button"))
+// const Divider = loadable(() => import("@material-ui/core/Divider"))
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -48,21 +56,6 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
         }
       };
 
-
-
-
-      // const orderData = {
-      //   line_items: checkoutToken.live.line_items,
-      //   customer: { firstname: shippingData.firstName, lastname: shippingData.lastName, email: shippingData.email },
-      //   shipping: { name: 'International', street: shippingData.address1, town_city: shippingData.city, county_state: shippingData.shippingSubdivision, postal_zip_code: shippingData.zip, country: shippingData.shippingCountry },
-      //   fulfillment: { shipping_method: shippingData.shippingOption },
-      //   payment: {
-      //     gateway: 'stripe',
-      //     stripe: {
-      //       payment_method_id: paymentMethod.id,
-      //     },
-      //   },
-      // };
 console.log("order:",orderData,checkoutToken.live.line_items)
       onCaptureCheckout(checkoutToken.id, orderData);
 
@@ -72,9 +65,7 @@ console.log("order:",orderData,checkoutToken.live.line_items)
 
   return (
     <>
-    {/* <Suspense fallback={'loading...'}> */}
       <Review checkoutToken={checkoutToken} />
-      
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Payment method</Typography>
       <Elements stripe={stripePromise}>
@@ -92,7 +83,6 @@ console.log("order:",orderData,checkoutToken.live.line_items)
         )}
         </ElementsConsumer>
       </Elements>
-      {/* </Suspense> */}
     </>
   );
 };

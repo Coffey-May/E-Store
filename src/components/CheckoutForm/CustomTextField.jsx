@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{memo} from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -12,10 +12,7 @@ function FormInput({ name, label, required }) {
   const isError = false;
 
   return (
-    // <Suspense fallback={'loading...'}>
     <Grid item xs={12} sm={6}>
-
-
 {/* <Controller
  defaultValue={''}
  error={isError}
@@ -23,9 +20,7 @@ function FormInput({ name, label, required }) {
 	 name={name}
 	render={({ field }) => <TextField fullWidth label={label} required />}
       /> */}
-  
-   
-      <Controller
+        <Controller
         as={TextField}
         name={name}
         control={control}
@@ -37,9 +32,8 @@ function FormInput({ name, label, required }) {
       />
    
    </Grid>
-    // </Suspense>
   );
 }
 
-export default FormInput;
+export default memo(FormInput);
 

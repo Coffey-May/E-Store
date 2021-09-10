@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
+import loadable from '@loadable/component'
 
 import { commerce } from '../../../lib/commerce';
-import AddressForm from '../AddressForm';
-import PaymentForm from '../PaymentForm';
+// import AddressForm from '../AddressForm';
+// import PaymentForm from '../PaymentForm';
 import useStyles from './styles';
+
+const AddressForm = loadable(() => import("../AddressForm"))
+const PaymentForm = loadable(() => import("../PaymentForm"))
+
+
+
 
 const steps = ['Shipping address', 'Payment details'];
 
@@ -74,6 +81,7 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
 
   return (
     <>
+    {/* <Suspense fallback={'loading...'}> */}
       <CssBaseline />
       <div className={classes.toolbar} />
       <main className={classes.layout}>
@@ -89,6 +97,7 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
           {activeStep === steps.length ? <Confirmation /> : checkoutToken && <Form />}
         </Paper>
       </main>
+      {/* </Suspense> */}
     </>
   );
 };

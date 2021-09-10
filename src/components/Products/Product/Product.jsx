@@ -1,8 +1,18 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
-import { AddShoppingCart } from '@material-ui/icons';
+import loadable from "@loadable/component"
+// import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
+// import { AddShoppingCart } from '@material-ui/icons';
 
 import useStyles from './styles';
+
+const Card = loadable(() => import("@material-ui/core/Card"))
+const CardMedia = loadable(() => import("@material-ui/core/CardMedia"))
+const CardContent = loadable(() => import("@material-ui/core/CardContent"))
+const CardActions = loadable(() => import("@material-ui/core/CardActions"))
+const Typography = loadable(() => import("@material-ui/core/Typography"))
+const IconButton = loadable(() => import("@material-ui/core/IconButton"))
+const AddShoppingCart = loadable(() => import("@material-ui/icons/AddShoppingCart"))
+
 
 const Product = ({ product, onAddToCart }) => {
   const classes = useStyles();
