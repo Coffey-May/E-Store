@@ -28,7 +28,6 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
     const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
 
     return (
-        // <Suspense fallback={'loading...'}>
         <Card className="cart-item">
             <CardMedia image={item.media.source} alt={item.name} className={classes.media} />
             <CardContent className={classes.cardContent}>
@@ -44,7 +43,6 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
                 <Button variant="contained" type="button" color="secondary" onClick={() => handleRemoveFromCart(item.id)}>Remove</Button>
             </CardActions>
         </Card>
-        // </Suspense>
     );
 };
 

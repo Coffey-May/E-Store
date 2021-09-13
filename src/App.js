@@ -2,7 +2,11 @@ import React, { useState, useEffect, useCallback, memo } from 'react';
 // import { CssBaseline } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import loadable from '@loadable/component'
+import loadable from '@loadable/component';
+import { ToastContainer } from 'react-toastify';
+
+
+
 
 // import { Navbar, Products, Cart, Checkout } from './components';
 import { commerce } from './lib/commerce';
@@ -63,6 +67,7 @@ const App = () => {
     const item = await commerce.cart.add(productId, quantity);
 
     setCart(item.cart);
+
   }, []);
 
   const handleUpdateCartQty = useCallback(async (lineItemId, quantity) => {
@@ -112,6 +117,7 @@ const App = () => {
   return (
 
     <>
+
       <Router>
         {console.log("app")}
         <div style={{ display: 'flex' }}>
@@ -119,9 +125,11 @@ const App = () => {
             <CssBaseline />
             <Navbar totalItems={cart.total_items} handleDrawerToggle={handleDrawerToggle} />
             <Switch>
-              <Route exact path="/">
-                <Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />
-              </Route>
+              {products.length ?
+                <Route exact path="/">
+                  <Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />
+                </Route>
+                : ""}
               <Route exact path="/cart">
                 <Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />
               </Route>
@@ -130,12 +138,27 @@ const App = () => {
               </Route>
 
             </Switch>
-
+            {/* </div> */}
           </MuiThemeProvider>
+        </div>
+        <div>
+          <ToastContainer
+            position="bottom-left"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </div>
 
       </Router>
+
       <Footer />
+
 
     </>
   );

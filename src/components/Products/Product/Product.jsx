@@ -4,6 +4,8 @@ import loadable from "@loadable/component"
 // import { AddShoppingCart } from '@material-ui/icons';
 
 import useStyles from './styles';
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Card = loadable(() => import("@material-ui/core/Card"))
 const CardMedia = loadable(() => import("@material-ui/core/CardMedia"))
@@ -17,8 +19,17 @@ const AddShoppingCart = loadable(() => import("@material-ui/icons/AddShoppingCar
 const Product = ({ product, onAddToCart }) => {
   const classes = useStyles();
 
-  const handleAddToCart = () => onAddToCart(product.id, 1);
+  // const notify = () => toast("You've added an item to your cart.");
+  const notify = () => toast.success("You've added an item to your cart.", {
+    theme: "dark"
+  })
 
+  const handleAddToCart = () => {
+
+    
+    onAddToCart(product.id, 1);
+    notify()
+  }
   return (
     <Card className={classes.root}>
       <CardMedia className={classes.media} image={product.media.source} title={product.name} />
@@ -35,6 +46,7 @@ const Product = ({ product, onAddToCart }) => {
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <IconButton aria-label="Add to Cart" onClick={handleAddToCart}>
+        
           <AddShoppingCart />
         </IconButton>
       </CardActions>

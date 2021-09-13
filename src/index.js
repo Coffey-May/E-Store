@@ -7,13 +7,13 @@ const App = loadable(() => import("./App"))
 
 
 ReactDOM.render(
-  // <Suspense fallback={'loading...'}>
-  <React.StrictMode>
 
-    < App />
+  // <React.StrictMode>
 
-  </React.StrictMode >
-  // </Suspense>
+  < App />
+
+  //  </React.StrictMode > 
+
   ,
   document.getElementById('root')
 );

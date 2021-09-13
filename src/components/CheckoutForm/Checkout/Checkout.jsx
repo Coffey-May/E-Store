@@ -83,7 +83,7 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
     <>
     {/* <Suspense fallback={'loading...'}> */}
       <CssBaseline />
-      <div className={classes.toolbar} />
+      <div style={{minHeight:'90vh'}} className={classes.toolbar} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography variant="h4" align="center">Checkout</Typography>

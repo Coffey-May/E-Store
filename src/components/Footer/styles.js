@@ -1,19 +1,27 @@
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 0;
+
 
 export default makeStyles((theme) => ({
 
-    // appBar: {
-    //     boxShadow: 'none',
-    //     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-    //     [theme.breakpoints.up('sm')]: {
-    //         width: `calc(100% - ${drawerWidth}px)`,
-    //         marginLeft: drawerWidth,
-    //     },
-    //     backgroundColor: '#f5feff'
-    // },
     foot: {
-        marginTop: '4em'
+
+        position: 'relative',
+        bottom: '0',
+        width: '100vw',
+        background: '#706e6e',
+        marginTop: '0 auto',
+        left: '0',
+        right: '0',
+
+
+    },
+    boxWrap: {
+        display: 'flex',
+        flexDirection: 'row',
+        padding: '1em'
+    },
+    logo: {
+        fontFamily: 'Palette Mosaic, cursive !important'
     }
 }));
