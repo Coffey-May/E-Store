@@ -19,6 +19,8 @@ export default makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
+        color: '#ff4faa !important',
+        // color: 'white'
     },
     cardDetails: {
         display: 'flex',
@@ -27,4 +29,14 @@ export default makeStyles((theme) => ({
         justifyContent: 'space-between',
         marginBottom: '5em'
     },
+    image: {
+        backgroundSize: 'cover',
+        // height: '100%',
+        backgroundRepeat: 'no-repeat',
+
+        [theme.breakpoints.up('sm')]: {
+            backgroundSize: 'cover',
+            width: '100vw',
+        },
+    }
 }));

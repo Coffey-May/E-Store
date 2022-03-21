@@ -17,6 +17,7 @@ export default makeStyles((theme) => ({
         transform: 'scaleX(-1)',
         [theme.breakpoints.down('md')]: {
             marginTop: '7vh',
+
         },
         width: '100vw',
         backgroundSize: "cover",
@@ -32,31 +33,41 @@ export default makeStyles((theme) => ({
     },
 
     title: {
-        marginTop: '60vh',
+        marginTop: '30vh',
         color: '#ff4faa !important',
         paddingBottom: '1.5em',
         fontSize: '4vw',
         [theme.breakpoints.down('sm')]: {
-            marginTop: '10vh',
-
+            marginTop: '20vh',
+            textAlign: 'center'
         },
 
     },
     title2: {
         flexGrow: 1,
-        alignItems: 'center',
-        display: 'flex',
+        // alignItems: 'center',
+        // display: 'flex',
         textDecoration: 'none',
         fontSize: '4vw',
-        fontFamily: 'Rock Salt, cursive  !important',
-
+        // fontFamily: 'Rock Salt, cursive  !important',
+        padding: '1em',
     },
     title3: {
         flexGrow: 1,
-        alignItems: 'center',
-        display: 'flex',
+        // alignItems: 'center',
+        // display: 'flex',
         textDecoration: 'none',
         fontSize: '3vw',
+        padding: '1em',
+
+    },
+    knockOut: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        display: 'block',
+        color: 'white',
+        fontSize: '7vmin',
+        textShadow: ' -1px -.75px 0 #000, 1px -.75px 0 #000, -.75px 1px 0 #000, .75px .75px 0 #000',
 
     },
 

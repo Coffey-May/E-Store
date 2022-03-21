@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 
 // import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 // import ShoppingCart from '@material-ui/icons/ShoppingCart';
@@ -9,27 +9,24 @@ import React, { memo } from 'react';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Menu from '@material-ui/core/Menu';
 // import Typography from '@material-ui/core/Typography';
-import { Link, useLocation } from 'react-router-dom';
-import loadable from "@loadable/component"
+import { Link, useLocation } from "react-router-dom";
+import loadable from "@loadable/component";
 
-
-
-import useStyles from './styles';
-
+import useStyles from "./styles";
 
 // const Pit = loadable(() => import('../Navbar/image/pitbull.jpg'))
 
-import Pit from '../../assets/pitbull.jpg';
-const ShoppingCart = loadable(() => import("@material-ui/icons/ShoppingCart"))
-const AppBar = loadable(() => import("@material-ui/core/AppBar"))
-const Toolbar = loadable(() => import("@material-ui/core/Toolbar"))
-const IconButton = loadable(() => import("@material-ui/core/IconButton"))
-const Badge = loadable(() => import("@material-ui/core/Badge"))
-const Container = loadable(() => import("@material-ui/core/Container"))
+import Pit from "../../assets/pitbull.jpg";
+const ShoppingCart = loadable(() => import("@material-ui/icons/ShoppingCart"));
+const AppBar = loadable(() => import("@material-ui/core/AppBar"));
+const Toolbar = loadable(() => import("@material-ui/core/Toolbar"));
+const IconButton = loadable(() => import("@material-ui/core/IconButton"));
+const Badge = loadable(() => import("@material-ui/core/Badge"));
+const Container = loadable(() => import("@material-ui/core/Container"));
 // const MenuItem = loadable(() => import("@material-ui/core/MenuItem"))
 // const Menu = loadable(() => import("@material-ui/core/Menu"))
-const Typography = loadable(() => import("@material-ui/core/Typography"))
-const CssBaseline = loadable(() => import("@material-ui/core/CssBaseline"))
+const Typography = loadable(() => import("@material-ui/core/Typography"));
+const CssBaseline = loadable(() => import("@material-ui/core/CssBaseline"));
 
 const Navbar = ({ totalItems }) => {
   // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -57,28 +54,47 @@ const Navbar = ({ totalItems }) => {
 
   return (
     <>
-    {console.log("nav")}
-    <CssBaseline/>
-      <AppBar style={{ background: '#706e6e' }} position="fixed" className={classes.appBar} >
+      {console.log("nav")}
+      <CssBaseline />
+      <AppBar
+        style={{ background: "black" }}
+        position="fixed"
+        className={classes.appBar}
+      >
         <Toolbar>
-        {/* <img src={Pit} alt="cartoon dog" className={classes.image}/>  */}
-        <Container className={classes.containerStyle} style={{display:"flex",flexDirection:'column',color:'white'}}>
-          <Typography  component={Link} to="/" variant="h5" className={classes.title} color="inherit">
-                   BONES MALONES
-           </Typography>
-         
-        </Container> 
-      
+          {/* <img src={Pit} alt="cartoon dog" className={classes.image}/>  */}
+          <Container
+            // className={classes.containerStyle}
+            style={{ display: "flex", flexDirection: "column", color: "white" }}
+          >
+            <Typography
+              component={Link}
+              to="/"
+              variant="p"
+              className={classes.title}
+              color="inherit"
+            >
+              BONES MALONES
+            </Typography>
+          </Container>
+
           <div className={classes.grow} />
-       <a className={classes.contact} href="#footer">CONTACT</a>
-          {location.pathname === '/' && (
-          <div className={classes.button}>
-            <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
-              <Badge badgeContent={totalItems} color="secondary">
-                <ShoppingCart style={{color:'white'}}/>
-              </Badge>
-            </IconButton>
-          </div>
+          <a className={classes.contact} href="#footer">
+            CONTACT
+          </a>
+          {location.pathname === "/" && (
+            <div className={classes.button}>
+              <IconButton
+                component={Link}
+                to="/cart"
+                aria-label="Show cart items"
+                color="inherit"
+              >
+                <Badge badgeContent={totalItems} color="secondary">
+                  <ShoppingCart style={{ color: "white" }} />
+                </Badge>
+              </IconButton>
+            </div>
           )}
         </Toolbar>
       </AppBar>
